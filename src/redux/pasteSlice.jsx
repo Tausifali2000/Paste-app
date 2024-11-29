@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import toast from 'react-hot-toast';
+
 const initialState = {
   pastes: localStorage.getItem("pastes")
   ? JSON.parse(localStorage.getItem("pastes"))
-  : []
+  : [],
 }
 
 export const pasteSlice = createSlice({
@@ -12,9 +14,13 @@ export const pasteSlice = createSlice({
   reducers: {
     addToPastes: (state, action) => {
       const paste = action.payload;
+
+      //add check for same title
+
       state.pastes.push(paste);
-      localStorage.setItem("pastes",state.pastes);
-      Toast
+      localStorage.setItem("pastes",
+        JSON.stringify(state.pastes));
+      toast("Paste created successfully")
     
     },
     updateToPastes: (state, action) => {
